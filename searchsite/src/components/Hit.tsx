@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+// @ts-expect-error Missing types
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/hljs";
+
 type HitType = {
   file: string;
   function: {
@@ -46,6 +48,7 @@ export function Hit({ hit }: { hit: HitType }) {
                 : JSON.stringify(hit.function.dependencies["solana-program"])}
             </p>
           ) : null}
+          {/* Unused badge colors */}
           {/* <p className="text-sm">
             <span
               className={`px-2 py-0.5 rounded-full text-xs font-medium ${

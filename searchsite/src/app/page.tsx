@@ -29,8 +29,7 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   },
   additionalSearchParameters: {
     query_by: "function.repo_url,function.name",
-    // "function.repo_url,analysis.description,analysis.category,function.name",
-    // query_by_weights: "4,2,1,1",
+    // @ts-expect-error This is a bug in the typesense-instantsearch-adapter package
     infix: "always,always",
   },
 });
@@ -41,6 +40,7 @@ export default function Home() {
   return (
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
       {/* Fixed header */}
+      {/* @ts-expect-error This is a bug in the typesense-instantsearch-adapter package */}
       <InstantSearch searchClient={searchClient} indexName="raw">
         {/* Fixed header */}
         <div className="fixed top-0 left-0 right-0 z-50 bg-[var(--background)] p-4">
@@ -63,10 +63,12 @@ export default function Home() {
               </p>
             </div>
             <div className="mt-4">
+              {/* @ts-expect-error This is a bug in the typesense-instantsearch-adapter package */}
               <SearchBox
                 placeholder="Search for Solana functions..."
                 className="w-full"
               />
+              {/* @ts-expect-error This is a bug in the typesense-instantsearch-adapter package */}
               <Stats />
             </div>
           </div>
@@ -85,6 +87,7 @@ export default function Home() {
               </Panel> */}
 
               <Panel header="Repository">
+                {/* @ts-expect-error This is a bug in the typesense-instantsearch-adapter package */}
                 <RefinementList
                   attribute="function.repo_url"
                   limit={5}
@@ -104,6 +107,7 @@ export default function Home() {
           <main className="flex-1 ml-64 px-8">
             <div className="max-w-4xl mx-auto py-5">
               <div className="w-full">
+                {/* @ts-expect-error This is a bug in the typesense-instantsearch-adapter package */}
                 <Hits hitComponent={Hit} />
               </div>
             </div>
