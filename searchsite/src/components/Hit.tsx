@@ -23,8 +23,27 @@ type HitType = {
   };
 };
 
+function transformContent(content: string): string {
+  // Get last line of content
+  const lines = content.split("\n");
+  const lastLine = lines[lines.length - 1];
+  // Get whitespace before last line
+  const lastLineWhitespace = lastLine.match(/^\s*/)?.[0] || "";
+  // Add whitespace padding to first line
+  const transformedContent = content
+    .split("\n")
+    .map((line, i) => {
+      if (i === 0) return lastLineWhitespace + line.trimLeft();
+      return line;
+    })
+    .join("\n");
+  return transformedContent;
+}
+
 export function Hit({ hit }: { hit: HitType }) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const transformedContent = transformContent(hit.function.content);
 
   return (
     <div className="border border-gray-500/30 overflow-hidden rounded-lg sm:rounded-xl shadow-sm w-full bg-gray-800">
@@ -118,7 +137,7 @@ export function Hit({ hit }: { hit: HitType }) {
                 padding: "1rem",
               }}
             >
-              {hit.function.content}
+              {transformedContent}
             </SyntaxHighlighter>
             {"dependencies" in hit.function &&
             "solana-program" in hit.function.dependencies ? (

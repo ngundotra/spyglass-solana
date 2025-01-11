@@ -21,7 +21,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.ais-Hits-item  {
+.ais-InfiniteHits-item  {
   background: transparent !important;
 }
 
@@ -40,5 +40,9 @@ body {
 }
 
 .ais-RefinementList-showMore {
+  background: transparent !important;
+}
+
+.ais-InfiniteHits-loadMore {
   background: transparent !important;
 }

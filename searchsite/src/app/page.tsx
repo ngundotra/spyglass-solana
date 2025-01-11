@@ -4,7 +4,7 @@ import Image from "next/image";
 import {
   InstantSearch,
   SearchBox,
-  Hits,
+  InfiniteHits,
   Stats,
   RefinementList,
 } from "react-instantsearch";
@@ -147,7 +147,7 @@ export default function Home() {
             <div className="h-full py-4 pr-8 overflow-auto">
               <div className="w-full max-w-full">
                 {/* @ts-expect-error This is a bug in the typesense-instantsearch-adapter package */}
-                <Hits hitComponent={Hit} />
+                <InfiniteHits hitComponent={Hit} showPrevious={false} />
               </div>
             </div>
           </main>
