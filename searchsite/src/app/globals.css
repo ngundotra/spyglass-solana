@@ -2,17 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
+} */
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* @media (prefers-color-scheme: dark) {
+} */
 
 body {
   color: var(--foreground);
@@ -20,6 +21,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.ais-Hits-item  {
+  background: transparent !important;
+}
 
 .Search {
   display: grid;
@@ -35,16 +39,6 @@ body {
   color: black;
 }
 
-.ais-Panel {
-  /* background-color: blue; */
-  color: white;
-}
-.ais-Panel-header {
-  color: white;
-
-  font-size: 1rem;
-}
-.ais-Panel-body {
-  color: white;
-  /* background-color: blue; */
+.ais-RefinementList-showMore {
+  background: transparent !important;
 }

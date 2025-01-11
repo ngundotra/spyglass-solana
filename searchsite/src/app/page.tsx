@@ -75,8 +75,11 @@ export default function Home() {
         </div>
 
         <div className="flex pt-[200px]">
-          {/* Fixed left sidebar */}
-          <div className="fixed left-0 top-[200px] bottom-0 w-64 overflow-y-auto bg-[var(--background)] border-r border-gray-700 p-4">
+          {/* Resizable left sidebar */}
+          <div
+            className="fixed left-0 top-[200px] bottom-0 overflow-y-auto bg-[var(--background)] border-r border-gray-700 p-4"
+            style={{ width: "var(--sidebar-width, 256px)" }} // Default 256px (64 * 4)
+          >
             <div className="flex flex-col gap-4">
               {/* <Panel header="Category">
                 <RefinementList
@@ -101,12 +104,48 @@ export default function Home() {
                 />
               </Panel>
             </div>
+
+            {/* Resizer handle */}
+            <div
+              className="absolute top-0 right-0 bottom-0 w-1 cursor-ew-resize hover:bg-gray-600 active:bg-gray-500"
+              onMouseDown={(e) => {
+                const startX = e.clientX;
+                const startWidth = parseInt(
+                  getComputedStyle(e.currentTarget.parentElement!).width
+                );
+
+                const onMouseMove = (e: MouseEvent) => {
+                  const newWidth = startWidth + (e.clientX - startX);
+                  const clampedWidth = Math.max(200, Math.min(400, newWidth));
+                  document.documentElement.style.setProperty(
+                    "--sidebar-width",
+                    `${clampedWidth}px`
+                  );
+                  // Update main content margin dynamically
+                  document.documentElement.style.setProperty(
+                    "--main-margin",
+                    `${clampedWidth + 16}px` // Add 16px for padding
+                  );
+                };
+
+                const onMouseUp = () => {
+                  document.removeEventListener("mousemove", onMouseMove);
+                  document.removeEventListener("mouseup", onMouseUp);
+                };
+
+                document.addEventListener("mousemove", onMouseMove);
+                document.addEventListener("mouseup", onMouseUp);
+              }}
+            />
           </div>
 
           {/* Main content */}
-          <main className="flex-1 ml-64 px-8">
-            <div className="max-w-4xl mx-auto py-5">
-              <div className="w-full">
+          <main
+            className="flex-1 pb-24"
+            style={{ marginLeft: "var(--main-margin, 272px)" }} // Default is sidebar width (256px) + padding
+          >
+            <div className="h-full py-4 pr-8 overflow-auto">
+              <div className="w-full max-w-full">
                 {/* @ts-expect-error This is a bug in the typesense-instantsearch-adapter package */}
                 <Hits hitComponent={Hit} />
               </div>
